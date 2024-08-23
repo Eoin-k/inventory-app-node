@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Inventory Homepage</title>
+	</head>
+	<body>
+		<h1>This is the Homepage</h1>
+		<div class="body-wrapper">
+			<div class="sidebar">
+				<% categories.forEach(cat => { %>
+				<li>
+					<p><%= cat.cat_name</p>
+				</li>
+				})
+			</div>
+			<div class="main-wrapper">
+				<% items.forEach(item => { %>
+				<div class="item-card">
+					<img src="<%= item.image %>" alt="" />
+					<p><%= item.item_name %></p>
+				</div>
+				})
+			</div>
+		</div>
+	</body>
+</html>
