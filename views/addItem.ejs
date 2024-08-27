@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Add New Item</title>
+	</head>
+	<body>
+		<form action="" method="POST">
+			<label for="itemname">
+				<input type="text" id="itemname" name="itemname" required />
+			</label>
+			<label for="itemqty">
+				<input type="number" id="itemqty" name="itemqty" required />
+			</label>
+			<label for="itemimage">
+				<input type="file" id="itemimage" name="itemimage" accept="image/*" />
+			</label>
+			<label for="manufacturer">
+				Select manufacturer this part is for:
+				<select id="manufacturer" name="manufacturer">
+					<option value="">--Choose and option--</option>
+					<% manufacturers.forEach(manufacturer => { %>
+					<option value="<%=manufacturer.manufacturer_id %>">
+						<%= manufacturer.manufacturer_name %>
+					</option>
+					<% }); %>
+				</select>
+			</label>
+		</form>
+	</body>
+</html>
