@@ -15,8 +15,23 @@ async function getManufacturers() {
 	return manufacturers.rows;
 }
 
+async function addItemToDb({
+	itemname,
+	itemqty,
+	itemimage,
+	manufacturer,
+	category,
+}) {
+	await pool.query(
+		"INSERT INTO items(item_name,item_quantity,item_image,manufacturer_id, category_id) VALUES ($1,$2,$3,$4,$5)",
+		[itemname, itemqty, itemimage, manufacturer, category],
+	);
+	console.log("item successfully added");
+}
+
 module.exports = {
 	getAllItems,
 	getAllCats,
 	getManufacturers,
+	addItemToDb,
 };

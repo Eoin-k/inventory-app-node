@@ -1,3 +1,18 @@
 .item-card {
 	background-color: red;
 }
+img {
+	max-width: 100%;
+}
+
+.main-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1rem;
+}
+.body-wrapper {
+	max-width: 1280px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+}

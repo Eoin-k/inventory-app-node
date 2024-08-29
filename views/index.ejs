@@ -7,8 +7,9 @@
 		<title>Inventory Homepage</title>
 	</head>
 	<body>
-		<h1>This is the Homepage</h1>
 		<div class="body-wrapper">
+			<h1>This is the Homepage</h1>
+			<a href="/additem">add new item</a>
 			<div class="sidebar">
 				<% categories.forEach(category => { %>
 				<div class="cat-card">
@@ -19,7 +20,7 @@
 			<div class="main-wrapper">
 				<% items.forEach(item => { %>
 				<div class="item-card">
-					<img src="<%= item.image %>" alt="" />
+					<img src="<%= item.item_image %>" alt="" />
 					<p><%= item.item_name %></p>
 				</div>
 				<% }); %>
