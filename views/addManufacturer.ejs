@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Add new manufacturer</title>
+	</head>
+	<body>
+		<h1>Add a new manufacturer</h1>
+		<%- include("partials/errors.ejs") %>
+		<form action="/addmanufacturer" method="POST">
+			<label for="manufacturer">
+				<p>Enter manufacturer name:</p>
+				<input type="text" id="manufacturer" name="manufacturer" required />
+			</label>
+			<button type="submit">Add manufacturer</button>
+		</form>
+	</body>
+</html>

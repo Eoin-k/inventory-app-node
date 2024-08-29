@@ -26,7 +26,6 @@ getItemAttributes = async (req, res) => {
 addItem = [
 	validateNewItem,
 	async (req, res) => {
-		console.log("made it to add item");
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			const categories = await db.getAllCats();

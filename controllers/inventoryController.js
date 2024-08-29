@@ -4,7 +4,12 @@ listAllItems = async (req, res) => {
 	try {
 		const categories = await db.getAllCats();
 		const items = await db.getAllItems();
-		res.render("index", { categories: categories, items: items });
+		const manufacturers = await db.getManufacturers();
+		res.render("index", {
+			categories: categories,
+			items: items,
+			manufacturers: manufacturers,
+		});
 	} catch (err) {
 		console.error(err);
 	}
