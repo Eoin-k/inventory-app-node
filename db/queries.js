@@ -38,16 +38,17 @@ async function addItemToDb({
 	itemname,
 	itemqty,
 	itemimage,
+	itemdescription,
 	manufacturer,
 	category,
 }) {
 	await pool.query(
-		"INSERT INTO items(item_name,item_quantity,item_image,manufacturer_id, category_id) VALUES ($1,$2,$3,$4,$5)",
-		[itemname, itemqty, itemimage, manufacturer, category],
+		"INSERT INTO items(item_name,item_quantity,item_image,manufacturer_id, category_id,item_description) VALUES ($1,$2,$3,$4,$5,$6)",
+		[itemname, itemqty, itemimage, manufacturer, category, itemdescription],
 	);
 
 	await pool.query(
-		"INSERT INTO items(manufacturer_name) SELECT manufacturers(manufacturer_name) WHERE manufacturers.manufacuturer_id = items.manufacturer_id",
+		"UPDATE items SET manufacturer_name = manufacturers.manufacturer_name FROM manufacturers WHERE items.manufacturer_id = manufacturers.manufacturer_id",
 	);
 	console.log("item successfully added");
 }

@@ -53,7 +53,14 @@ addItem = [
 				categories: categories,
 			});
 		}
-		const { itemname, itemqty, itemimage, manufacturer, category } = req.body;
+		const {
+			itemname,
+			itemqty,
+			itemimage,
+			manufacturer,
+			category,
+			itemdescription,
+		} = req.body;
 
 		await db.addItemToDb({
 			itemname,
@@ -61,6 +68,7 @@ addItem = [
 			itemimage,
 			manufacturer,
 			category,
+			itemdescription,
 		});
 		res.redirect("/");
 	},
