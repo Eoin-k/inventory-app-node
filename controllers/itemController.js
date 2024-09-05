@@ -10,6 +10,23 @@ const validateNewItem = [
 	body("itemimage").isURL(),
 ];
 
+getSingleItem = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const categories = await db.getAllCats();
+		const manufacturers = await db.getManufacturers();
+		const item = await db.getSingleItem({ id });
+		console.log(item);
+		res.render("singleItem", {
+			manufacturers: manufacturers,
+			categories: categories,
+			item: item,
+		});
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 getItemAttributes = async (req, res) => {
 	try {
 		const categories = await db.getAllCats();
@@ -52,4 +69,5 @@ addItem = [
 module.exports = {
 	getItemAttributes,
 	addItem,
+	getSingleItem,
 };

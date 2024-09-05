@@ -5,6 +5,11 @@ async function getAllItems() {
 	return items.rows;
 }
 
+async function getSingleItem({ id }) {
+	const item = await pool.query("SELECT * FROM items WHERE id = $1", [id]);
+	return item.rows[0];
+}
+
 async function getAllCats() {
 	const categories = await pool.query(`SELECT * FROM categories;`);
 	return categories.rows;
@@ -40,6 +45,10 @@ async function addItemToDb({
 		"INSERT INTO items(item_name,item_quantity,item_image,manufacturer_id, category_id) VALUES ($1,$2,$3,$4,$5)",
 		[itemname, itemqty, itemimage, manufacturer, category],
 	);
+
+	await pool.query(
+		"INSERT INTO items(manufacturer_name) SELECT manufacturers(manufacturer_name) WHERE manufacturers.manufacuturer_id = items.manufacturer_id",
+	);
 	console.log("item successfully added");
 }
 
@@ -59,4 +68,5 @@ module.exports = {
 	getCatItems,
 	getManufacturerItems,
 	addManufacturer,
+	getSingleItem,
 };

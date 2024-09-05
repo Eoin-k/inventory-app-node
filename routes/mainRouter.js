@@ -8,6 +8,7 @@ const mainRouter = Router();
 mainRouter.get("/", inventoryController.listAllItems);
 mainRouter.get("/cat/:id", categoryController.listAllCatItems);
 mainRouter.get("/additem", itemcontroller.getItemAttributes);
+mainRouter.get("/item/:id", itemcontroller.getSingleItem);
 mainRouter.post("/additem", itemcontroller.addItem);
 mainRouter.get(
 	"/manufacturer/:id",

@@ -3,15 +3,17 @@ require("dotenv").config();
 
 const SQL = `CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, cat_name VARCHAR(255));
 
-CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, manufacturer_name VARCHAR(255) NOT NULL);
+CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, manufacturer_name VARCHAR(255) NOT NULL, category_id INT REFERENCES categories(id));
 
 CREATE TABLE IF NOT EXISTS items (
 id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, 
 item_name VARCHAR (255), 
-item_quantity INT, 
+item_quantity INT,
+item_description VARCHAR (255), 
 item_image VARCHAR(255), 
 manufacturer_id INT REFERENCES manufacturers(manufacturer_id), 
-category_id INT REFERENCES categories(id)
+category_id INT REFERENCES categories(id),
+manufacturer_name VARCHAR (255)
 );
 
 INSERT INTO categories (cat_name) VALUES 
@@ -22,8 +24,8 @@ INSERT INTO categories (cat_name) VALUES
 INSERT INTO manufacturers (manufacturer_name,category_id) VALUES 
 ('BMW', 1);
 
-INSERT INTO items (item_name,item_quantity,item_image,manufacturer_id,category_id) VALUES 
-('Brake Pads',24,'../public/images/brakepads.jpg',1,1);
+INSERT INTO items (item_name,item_quantity,item_image,manufacturer_id,category_id,manufacturer_name,item_description) VALUES 
+('Brake Pads',24,'https://cdn.autodoc.de/thumb?id=17789932&m=1&n=0&lng=en&rev=94077839',1,1,'BMW','These are really great break pads, long wearing, good stopping power and cheap');
 `;
 
 async function main() {

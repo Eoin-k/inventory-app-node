@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="stylesheet" href="/styles.css" />
 		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="/styles.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Inventory Homepage</title>
+		<title><%= item.item_name %></title>
 	</head>
 	<body>
 		<div class="header-wrapper container">
 			<div class="heading-wrapper">
-				<h1>This is the Homepage</h1>
+				<h1><%= item.item_name %></h1>
 				<a href="/">clear filters</a>
 				<a href="/additem">add new item</a>
 				<a href="/addmanufacturer">add new manufacturer</a>
@@ -35,14 +35,16 @@
 				</div>
 			</div>
 			<div class="main-wrapper">
-				<% items.forEach(item => { %>
-				<div class="item-card">
+				<div class="item-hero">
 					<img src="<%= item.item_image %>" alt="" />
 					<a href="/item/<%= item.id %>"><h3><%= item.item_name %></h3></a>
 					<p>Stock Level:<%= item.item_quantity %></p>
 					<p>For <%= item.manufacturer_name %> models</p>
 				</div>
-				<% }); %>
+				<div class="item-description">
+					<p><%= item.item_description %></p>
+				</div>
+				<div class="item-form-wrapper"></div>
 			</div>
 		</div>
 	</body>
