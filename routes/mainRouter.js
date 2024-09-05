@@ -23,5 +23,6 @@ mainRouter.post("/additem", itemcontroller.addItem);
 mainRouter.post("/addmanufacturer", manufacturerController.addManufacturer);
 mainRouter.post("/item/:id", itemcontroller.updateItem);
 mainRouter.post("/addcategory", categoryController.addCategory);
+mainRouter.post("/deletecat/:id", categoryController.deleteCategory);
 
 module.exports = mainRouter;

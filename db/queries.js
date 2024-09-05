@@ -24,7 +24,16 @@ async function getCatItems({ id }) {
 	const items = await pool.query("SELECT * FROM items WHERE category_id = $1", [
 		id,
 	]);
+
 	return items.rows;
+}
+
+async function catName({ id }) {
+	const catName = await pool.query(
+		"SELECT cat_name FROM categories WHERE id = $1",
+		[id],
+	);
+	return catName.rows[0].cat_name;
 }
 
 async function getManufacturerItems({ id }) {
@@ -93,6 +102,11 @@ async function addCategory({ category }) {
 	console.log("Category added successfully");
 }
 
+async function deleteCategory({ id }) {
+	await pool.query("DELETE FROM categories WHERE id = $1", [id]);
+	console.log("Category successfully deleted");
+}
+
 module.exports = {
 	getAllItems,
 	getAllCats,
@@ -104,4 +118,6 @@ module.exports = {
 	getSingleItem,
 	updateItemInDb,
 	addCategory,
+	deleteCategory,
+	catName,
 };

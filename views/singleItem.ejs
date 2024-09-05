@@ -46,6 +46,7 @@
 					<p><%= item.item_description %></p>
 				</div>
 				<button id="showbtn">Edit Item</button>
+				<button id="deletebtn">Delete Item</button>
 				<dialog id="edit-item-dialog">
 					<div class="item-form-wrapper">
 						<p>Edit Item details: only edit fields that need to be updated</p>
@@ -117,13 +118,33 @@
 						</form>
 					</div>
 				</dialog>
+				<dialog id="delete-dialog">
+					<h3>Enter Password to delete category</h3>
+					<form
+						id="delete-form"
+						action="/deletitem/<%= item.id %>"
+						method="POST"
+					>
+						<label for="password">
+							Enter password
+							<input id="password" name="password" type="password" />
+						</label>
+						<button type="submit">Submit</button>
+						<button id="closebtn">Close Modal</button>
+					</form>
+				</dialog>
 			</div>
 		</div>
 		<script>
 			const showButton = document.getElementById("showbtn");
+			const deletebtn = document.getElementById("deletebtn");
+			const deletedialog = document.getElementById("delete-dialog");
 			const dialog = document.getElementById("edit-item-dialog");
 			showButton.addEventListener("click", () => {
 				dialog.showModal();
+			});
+			deletebtn.addEventListener("click", () => {
+				deletedialog.showModal();
 			});
 		</script>
 	</body>

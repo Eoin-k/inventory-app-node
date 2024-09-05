@@ -1,5 +1,6 @@
 const db = require("../db/queries");
 const { body, validationResult } = require("express-validator");
+require("dotenv").config();
 
 const validateNewItem = [
 	body("category")
@@ -13,11 +14,15 @@ listAllCatItems = async (req, res) => {
 		const items = await db.getCatItems({ id });
 		const categories = await db.getAllCats();
 		const manufacturers = await db.getManufacturers();
-		res.render("index", {
+		const catName = await db.catName({ id });
+		res.render("categoryItems", {
 			categories: categories,
 			items: items,
 			manufacturers: manufacturers,
+			catName: catName,
+			catId: id,
 		});
+		console.log(id);
 	} catch (err) {
 		console.error(err);
 	}
@@ -42,8 +47,32 @@ addCategory = [
 	},
 ];
 
+deleteCategory = async (req, res, next) => {
+	const id = req.params.id;
+	const items = await db.getAllItems();
+	const categories = await db.getAllCats();
+	const manufacturers = await db.getManufacturers();
+	if (req.body.password === process.env.deletionpassword) {
+		await db.deleteCategory({ id });
+		res.render("index", {
+			categories: categories,
+			manufacturers: manufacturers,
+			items: items,
+		});
+	} else {
+		console.error("password does not match, cannot perform action");
+		res.render("index", {
+			errors: [{ msg: "incorrect password, could not delete category" }],
+			categories: categories,
+			manufacturers: manufacturers,
+			items: items,
+		});
+	}
+};
+
 module.exports = {
 	listAllCatItems,
 	renderNewCategoryform,
 	addCategory,
+	deleteCategory,
 };
