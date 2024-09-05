@@ -1,4 +1,11 @@
 const db = require("../db/queries");
+const { body, validationResult } = require("express-validator");
+
+const validateNewItem = [
+	body("category")
+		.isLength({ min: 1 })
+		.withMessage("name must be longer than 1 character"),
+];
 
 listAllCatItems = async (req, res) => {
 	const id = req.params.id;
@@ -16,6 +23,27 @@ listAllCatItems = async (req, res) => {
 	}
 };
 
+renderNewCategoryform = async (req, res) => {
+	res.render("addCategory");
+};
+
+addCategory = [
+	validateNewItem,
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			res.render("addCategory", {
+				errors: errors.array(),
+			});
+		}
+		const { category } = req.body;
+		await db.addCategory({ category });
+		res.redirect("/");
+	},
+];
+
 module.exports = {
 	listAllCatItems,
+	renderNewCategoryform,
+	addCategory,
 };

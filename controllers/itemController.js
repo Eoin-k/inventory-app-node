@@ -16,7 +16,6 @@ getSingleItem = async (req, res) => {
 		const categories = await db.getAllCats();
 		const manufacturers = await db.getManufacturers();
 		const item = await db.getSingleItem({ id });
-		console.log(item);
 		res.render("singleItem", {
 			manufacturers: manufacturers,
 			categories: categories,
@@ -41,13 +40,12 @@ getItemAttributes = async (req, res) => {
 };
 
 addItem = [
-	validateNewItem,
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			const categories = await db.getAllCats();
 			const manufacturers = await db.getManufacturers();
-			return res.status(400).render("additem", {
+			return res.status(200).render("additem", {
 				errors: errors.array(),
 				manufacturers: manufacturers,
 				categories: categories,
@@ -74,8 +72,47 @@ addItem = [
 	},
 ];
 
+updateItem = [
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			const id = req.params.id;
+			const categories = await db.getAllCats();
+			const manufacturers = await db.getManufacturers();
+			const item = await db.getSingleItem({ id });
+			return res.status(200).render("singleItem", {
+				errors: errors.array(),
+				manufacturers: manufacturers,
+				categories: categories,
+				item: item,
+			});
+		}
+		const {
+			itemname,
+			itemqty,
+			itemimage,
+			manufacturer,
+			category,
+			itemdescription,
+			id,
+		} = req.body;
+
+		await db.updateItemInDb({
+			itemname,
+			itemqty,
+			itemimage,
+			manufacturer,
+			category,
+			itemdescription,
+			id,
+		});
+		res.redirect("/");
+	},
+];
+
 module.exports = {
 	getItemAttributes,
 	addItem,
 	getSingleItem,
+	updateItem,
 };

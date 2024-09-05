@@ -53,12 +53,44 @@ async function addItemToDb({
 	console.log("item successfully added");
 }
 
+async function updateItemInDb({
+	itemname,
+	itemqty,
+	itemimage,
+	itemdescription,
+	manufacturer,
+	category,
+	id,
+}) {
+	console.log(
+		itemname,
+		itemqty,
+		itemimage,
+		manufacturer,
+		category,
+		itemdescription,
+		id,
+	);
+	pool.query(
+		"UPDATE items SET item_name = $1, item_quantity = $2, item_image = $3, manufacturer_id = $4, category_id = $5, item_description = $6 WHERE id = $7",
+		[itemname, itemqty, itemimage, manufacturer, category, itemdescription, id],
+	);
+	pool.query(
+		"UPDATE items SET manufacturer_name = manufacturers.manufacturer_name FROM manufacturers WHERE items.manufacturer_id = manufacturers.manufacturer_id",
+	);
+}
+
 async function addManufacturer({ manufacturer }) {
 	await pool.query(
 		"INSERT INTO manufacturers (manufacturer_name) VALUES ($1)",
 		[manufacturer],
 	);
 	console.log("Manufacturer Added Successfully");
+}
+
+async function addCategory({ category }) {
+	await pool.query("INSERT INTO categories (cat_name) VALUES ($1)", [category]);
+	console.log("Category added successfully");
 }
 
 module.exports = {
@@ -70,4 +102,6 @@ module.exports = {
 	getManufacturerItems,
 	addManufacturer,
 	getSingleItem,
+	updateItemInDb,
+	addCategory,
 };
