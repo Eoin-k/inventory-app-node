@@ -110,9 +110,34 @@ updateItem = [
 	},
 ];
 
+deleteItem = async (req, res) => {
+	const id = req.params.id;
+	const categories = await db.getAllCats();
+	const manufacturers = await db.getManufacturers();
+	if (req.body.password === process.env.deletionpassword) {
+		await db.deleteItem({ id });
+		const items = await db.getAllItems();
+		res.render("index", {
+			categories: categories,
+			manufacturers: manufacturers,
+			items: items,
+		});
+	} else {
+		const items = await db.getAllItems();
+		console.error("password does not match, cannot perform action");
+		res.render("index", {
+			errors: [{ msg: "incorrect password, could not delete Item" }],
+			categories: categories,
+			manufacturers: manufacturers,
+			items: items,
+		});
+	}
+};
+
 module.exports = {
 	getItemAttributes,
 	addItem,
 	getSingleItem,
 	updateItem,
+	deleteItem,
 };

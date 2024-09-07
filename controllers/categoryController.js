@@ -14,7 +14,7 @@ listAllCatItems = async (req, res) => {
 		const items = await db.getCatItems({ id });
 		const categories = await db.getAllCats();
 		const manufacturers = await db.getManufacturers();
-		const catName = await db.catName({ id });
+		const catName = await db.getCatName({ id });
 		res.render("categoryItems", {
 			categories: categories,
 			items: items,
@@ -22,7 +22,6 @@ listAllCatItems = async (req, res) => {
 			catName: catName,
 			catId: id,
 		});
-		console.log(id);
 	} catch (err) {
 		console.error(err);
 	}
@@ -47,7 +46,7 @@ addCategory = [
 	},
 ];
 
-deleteCategory = async (req, res, next) => {
+deleteCategory = async (req, res) => {
 	const id = req.params.id;
 	const items = await db.getAllItems();
 	const categories = await db.getAllCats();

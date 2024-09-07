@@ -28,7 +28,7 @@ async function getCatItems({ id }) {
 	return items.rows;
 }
 
-async function catName({ id }) {
+async function getCatName({ id }) {
 	const catName = await pool.query(
 		"SELECT cat_name FROM categories WHERE id = $1",
 		[id],
@@ -43,6 +43,15 @@ async function getManufacturerItems({ id }) {
 	);
 	return items.rows;
 }
+
+async function getManufacturerName({ id }) {
+	const manufacturerName = await pool.query(
+		"SELECT manufacturer_name FROM manufacturers WHERE manufacturer_id = $1",
+		[id],
+	);
+	return manufacturerName.rows[0].manufacturer_name;
+}
+
 async function addItemToDb({
 	itemname,
 	itemqty,
@@ -71,15 +80,6 @@ async function updateItemInDb({
 	category,
 	id,
 }) {
-	console.log(
-		itemname,
-		itemqty,
-		itemimage,
-		manufacturer,
-		category,
-		itemdescription,
-		id,
-	);
 	pool.query(
 		"UPDATE items SET item_name = $1, item_quantity = $2, item_image = $3, manufacturer_id = $4, category_id = $5, item_description = $6 WHERE id = $7",
 		[itemname, itemqty, itemimage, manufacturer, category, itemdescription, id],
@@ -107,6 +107,19 @@ async function deleteCategory({ id }) {
 	console.log("Category successfully deleted");
 }
 
+async function deleteItem({ id }) {
+	await pool.query("DELETE FROM items WHERE id = $1", [id]);
+	console.log("item Deleted");
+}
+
+async function deleteManufacturer({ id }) {
+	await pool.query("DELETE FROM items WHERE manufacturer_id = $1", [id]);
+	await pool.query("DELETE FROM manufacturers WHERE manufacturer_id = $1", [
+		id,
+	]);
+	console.log("Manufacturer & Related Items Deleted");
+}
+
 module.exports = {
 	getAllItems,
 	getAllCats,
@@ -119,5 +132,8 @@ module.exports = {
 	updateItemInDb,
 	addCategory,
 	deleteCategory,
-	catName,
+	getCatName,
+	deleteItem,
+	getManufacturerName,
+	deleteManufacturer,
 };

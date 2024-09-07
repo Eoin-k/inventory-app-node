@@ -13,10 +13,14 @@ listManufacturerItems = async (req, res) => {
 		const items = await db.getManufacturerItems({ id });
 		const categories = await db.getAllCats();
 		const manufacturers = await db.getManufacturers();
-		res.render("index", {
+		const manufacturerName = await db.getManufacturerName({ id });
+		console.log(manufacturerName);
+		res.render("manufacturerView", {
 			categories: categories,
 			items: items,
 			manufacturers: manufacturers,
+			manufacturerName: manufacturerName,
+			manufacturerId: id,
 		});
 	} catch (err) {
 		console.error(err);
@@ -41,8 +45,36 @@ addManufacturer = [
 		res.redirect("/");
 	},
 ];
+
+deleteManufacturer = async (req, res) => {
+	const id = req.params.id;
+
+	const categories = await db.getAllCats();
+	if (req.body.password === process.env.deletionpassword) {
+		await db.deleteManufacturer({ id });
+		const manufacturers = await db.getManufacturers();
+		const items = await db.getAllItems();
+		res.render("index", {
+			categories: categories,
+			manufacturers: manufacturers,
+			items: items,
+		});
+	} else {
+		const manufacturers = await db.getManufacturers();
+		const items = await db.getAllItems();
+		console.error("password does not match, cannot perform action");
+		res.render("index", {
+			errors: [{ msg: "incorrect password, could not delete manufacturer" }],
+			categories: categories,
+			manufacturers: manufacturers,
+			items: items,
+		});
+	}
+};
+
 module.exports = {
 	listManufacturerItems,
 	renderNewManufacturerForm,
 	addManufacturer,
+	deleteManufacturer,
 };

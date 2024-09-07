@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="/styles.css" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Category</title>
+	</head>
+	<body>
+		<div class="header-wrapper container">
+			<div class="heading-wrapper">
+				<h1>Manufacturer: <%= manufacturerName %></h1>
+				<a href="/">Clear filters</a>
+				<a href="/additem">Add new item</a>
+				<a href="/addmanufacturer">Add new manufacturer</a>
+				<a href="/addcategory">Add product category</a>
+			</div>
+		</div>
+		<div class="body-wrapper">
+			<div class="sidebar">
+				<% categories.forEach(category => { %>
+				<div class="cat-card">
+					<p><%= category.cat_name %></p>
+					<div>
+						<a href="/cat/<%= category.id%>">Show related parts</a>
+					</div>
+				</div>
+				<% }); %>
+				<div class="manufacturer-list">
+					<% manufacturers.forEach(manufacturer => { %>
+					<div class="manufacturer-card">
+						<p><%= manufacturer.manufacturer_name %></p>
+						<a href="/manufacturer/<%= manufacturer.manufacturer_id %>"
+							>Show <%= manufacturer.manufacturer_name %> parts</a
+						>
+					</div>
+					<% }); %>
+				</div>
+			</div>
+			<div class="main-wrapper">
+				<%- include("partials/errors.ejs") %>
+				<div class="button-wrapper">
+					<button id="delete">Delete Manufacturer</button>
+				</div>
+				<% items.forEach(item => { %>
+				<div class="item-card">
+					<img src="<%= item.item_image %>" alt="" />
+					<a href="/item/<%= item.id %>"><h3><%= item.item_name %></h3></a>
+					<p>Stock Level:<%= item.item_quantity %></p>
+					<p>For <%= item.manufacturer_name %> models</p>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+		<dialog id="delete-dialog">
+			<h3>Enter Password to delete category</h3>
+			<form
+				id="delete-form"
+				action="/deletemanufacturer/<%= manufacturerId %>"
+				method="POST"
+			>
+				<label for="password">
+					Enter password
+					<input id="password" name="password" type="password" />
+				</label>
+				<button type="submit">Submit</button>
+				<button id="closebtn">Close Modal</button>
+			</form>
+		</dialog>
+		<script>
+			const deleteButton = document.getElementById("delete");
+			const form = document.getElementById("delete-form");
+			const closeButton = document.getElementById("closebtn");
+			const dialog = document.getElementById("delete-dialog");
+			closeButton.addEventListener("click", () => dialog.close());
+			deleteButton.addEventListener("click", () => {
+				dialog.showModal();
+			});
+		</script>
+	</body>
+</html>
