@@ -145,22 +145,7 @@
 				</dialog>
 			</div>
 		</div>
-		<script>
-			const showButton = document.getElementById("showbtn");
-			const deletebtn = document.getElementById("deletebtn");
-			const deletedialog = document.getElementById("delete-dialog");
-			const closeButton = document.getElementById("closebtn");
-			const dialog = document.getElementById("edit-item-dialog");
-			closeButton.addEventListener("click", (e) => {
-				e.preventDefault();
-				deletedialog.close();
-			});
-			showButton.addEventListener("click", () => {
-				dialog.showModal();
-			});
-			deletebtn.addEventListener("click", () => {
-				deletedialog.showModal();
-			});
+		<script src="/index.js">
 		</script>
 	</body>
 </html>
