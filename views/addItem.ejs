@@ -2,50 +2,53 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="/styles.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Add New Item</title>
 	</head>
 	<body>
 		<h1>Add a new item</h1>
 		<%- include("partials/errors.ejs") %>
-		<form action="/additem" method="POST">
-			<label for="itemname">
-				<p>Item name:</p>
-				<input type="text" id="itemname" name="itemname" required />
-			</label>
-			<label for="itemqty">
-				<p>Enter quantity:</p>
-				<input type="number" id="itemqty" name="itemqty" required />
-			</label>
-			<label for="itemimage">
-				<p>Enter image Url for item</p>
-				<input type="text" id="itemimage" name="itemimage" />
-			</label>
-			<label for="itemdescription">
-				<p>Enter item description</p>
-				<textarea name="itemdescription" id="itemdescription"></textarea>
-			</label>
-			<label for="manufacturer">
-				<p>Select manufacturer this part is for:</p>
-				<select id="manufacturer" name="manufacturer">
-					<option value="">--Choose and option--</option>
-					<% manufacturers.forEach(manufacturer => { %>
-					<option value="<%=manufacturer.manufacturer_id %>">
-						<%= manufacturer.manufacturer_name %>
-					</option>
-					<% }); %>
-				</select>
-			</label>
-			<label for="category">
-				<p>Select part category:</p>
-				<select id="category" name="category">
-					<option value="">--Choose and option--</option>
-					<% categories.forEach(cat => { %>
-					<option value="<%= cat.id %>"><%= cat.cat_name %></option>
-					<% }); %>
-				</select>
-			</label>
-			<button type="submit">Add Product</button>
-		</form>
+		<div class="form-wrapper">
+			<form action="/additem" method="POST">
+				<label for="itemname">
+					<p>Item name:</p>
+					<input type="text" id="itemname" name="itemname" required />
+				</label>
+				<label for="itemqty">
+					<p>Enter quantity:</p>
+					<input type="number" id="itemqty" name="itemqty" required />
+				</label>
+				<label for="itemimage">
+					<p>Enter image Url for item</p>
+					<input type="text" id="itemimage" name="itemimage" />
+				</label>
+				<label for="itemdescription">
+					<p>Enter item description</p>
+					<textarea name="itemdescription" id="itemdescription"></textarea>
+				</label>
+				<label for="manufacturer">
+					<p>Select manufacturer this part is for:</p>
+					<select id="manufacturer" name="manufacturer">
+						<option value="">--Choose and option--</option>
+						<% manufacturers.forEach(manufacturer => { %>
+						<option value="<%=manufacturer.manufacturer_id %>">
+							<%= manufacturer.manufacturer_name %>
+						</option>
+						<% }); %>
+					</select>
+				</label>
+				<label for="category">
+					<p>Select part category:</p>
+					<select id="category" name="category">
+						<option value="">--Choose and option--</option>
+						<% categories.forEach(cat => { %>
+						<option value="<%= cat.id %>"><%= cat.cat_name %></option>
+						<% }); %>
+					</select>
+				</label>
+				<button class="btn-primary" type="submit">Add Product</button>
+			</form>
+		</div>
 	</body>
 </html>

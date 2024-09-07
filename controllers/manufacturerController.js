@@ -14,7 +14,6 @@ listManufacturerItems = async (req, res) => {
 		const categories = await db.getAllCats();
 		const manufacturers = await db.getManufacturers();
 		const manufacturerName = await db.getManufacturerName({ id });
-		console.log(manufacturerName);
 		res.render("manufacturerView", {
 			categories: categories,
 			items: items,

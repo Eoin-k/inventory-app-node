@@ -10,14 +10,16 @@
 		<div class="header-wrapper container">
 			<div class="heading-wrapper">
 				<%- include("partials/errors.ejs") %>
+				<a class="btn-primary header-link" href="/">Clear filters</a>
+				<a class="btn-primary header-link" href="/additem">Add new item</a>
+				<a class="btn-primary header-link" href="/addmanufacturer">Add new manufacturer</a>
+				<a class="btn-primary header-link" href="/addcategory">Add product category</a>
 				<h1><%= item.item_name %></h1>
-				<a href="/">clear filters</a>
-				<a href="/additem">add new item</a>
-				<a href="/addmanufacturer">add new manufacturer</a>
 			</div>
 		</div>
 		<div class="body-wrapper">
 			<div class="sidebar">
+				<h3>Product Categories</h3>
 				<% categories.forEach(category => { %>
 				<div class="cat-card">
 					<p><%= category.cat_name %></p>
@@ -25,6 +27,7 @@
 				</div>
 				<% }); %>
 				<div class="manufacturer-list">
+					<h3>Manufacturers</h3>
 					<% manufacturers.forEach(manufacturer => { %>
 					<div class="manufacturer-card">
 						<p><%= manufacturer.manufacturer_name %></p>
@@ -37,19 +40,24 @@
 			</div>
 			<div class="main-wrapper">
 				<div class="item-hero">
-					<img src="<%= item.item_image %>" alt="" />
+					<div class="image-wrapper">
+						<img src="<%= item.item_image %>" alt="" />
+					</div>
+					<div class="item-details">
 					<a href="/item/<%= item.id %>"><h3><%= item.item_name %></h3></a>
 					<p>Stock Level:<%= item.item_quantity %></p>
 					<p>For <%= item.manufacturer_name %> models</p>
-				</div>
+				
 				<div class="item-description">
 					<p><%= item.item_description %></p>
 				</div>
-				<button id="showbtn">Edit Item</button>
-				<button id="deletebtn">Delete Item</button>
+				<div class="button-wrapper">
+				<button class="btn-primary" id="showbtn">Edit Item</button>
+				<button class="btn-delete" id="deletebtn">Delete Item</button>
+			</div>
 				<dialog id="edit-item-dialog">
 					<div class="item-form-wrapper">
-						<p>Edit Item details: only edit fields that need to be updated</p>
+						<p>Edit Item details: Use ESC to close Modal</p>
 						<form action="/item/<%= item.id %>" method="POST">
 							<input type="hidden" name="id" id="id" value="<%= item.id %>" />
 							<label for="itemname">
@@ -114,7 +122,7 @@
 									<% } %> <% }); %>
 								</select>
 							</label>
-							<button id="item-update" type="submit">Update Product</button>
+							<button class="btn-primary" id="item-update" type="submit">Update Product</button>
 						</form>
 					</div>
 				</dialog>
@@ -129,8 +137,10 @@
 							Enter password
 							<input id="password" name="password" type="password" />
 						</label>
-						<button type="submit">Submit</button>
-						<button id="closebtn">Close Modal</button>
+						<div class="button-wrapper">
+						<button class="btn-primary" type="submit">Submit</button>
+						<button class="btn-secondary" id="closebtn">Close Modal</button>
+					</div>
 					</form>
 				</dialog>
 			</div>
@@ -139,7 +149,12 @@
 			const showButton = document.getElementById("showbtn");
 			const deletebtn = document.getElementById("deletebtn");
 			const deletedialog = document.getElementById("delete-dialog");
+			const closeButton = document.getElementById("closebtn");
 			const dialog = document.getElementById("edit-item-dialog");
+			closeButton.addEventListener("click", (e) => {
+				e.preventDefault();
+				deletedialog.close();
+			});
 			showButton.addEventListener("click", () => {
 				dialog.showModal();
 			});

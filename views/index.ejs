@@ -9,16 +9,18 @@
 	<body>
 		<div class="header-wrapper container">
 			<div class="heading-wrapper">
-				<h1>This is the Homepage</h1>
 				<%- include("partials/errors.ejs") %>
-				<a href="/">Clear filters</a>
-				<a href="/additem">Add new item</a>
-				<a href="/addmanufacturer">Add new manufacturer</a>
-				<a href="/addcategory">Add product category</a>
+				<a class="btn-primary header-link" href="/">Clear filters</a>
+				<a class="btn-primary header-link" href="/additem">Add new item</a>
+				<a class="btn-primary header-link" href="/addmanufacturer">Add new manufacturer</a>
+				<a class="btn-primary header-link" href="/addcategory">Add product category</a>
+				<h1>Home</h1>
+				
 			</div>
 		</div>
 		<div class="body-wrapper">
 			<div class="sidebar">
+				<h3>Product Categories</h3>
 				<% categories.forEach(category => { %>
 				<div class="cat-card">
 					<p><%= category.cat_name %></p>
@@ -28,6 +30,7 @@
 				</div>
 				<% }); %>
 				<div class="manufacturer-list">
+					<h3>Manufacturers</h3>
 					<% manufacturers.forEach(manufacturer => { %>
 					<div class="manufacturer-card">
 						<p><%= manufacturer.manufacturer_name %></p>
@@ -39,6 +42,10 @@
 				</div>
 			</div>
 			<div class="main-wrapper">
+				<div class="main-header">
+					<h2>All Parts</h2>
+				</div>
+				<div class="cards-wrapper">
 				<% items.forEach(item => { %>
 				<div class="item-card">
 					<img src="<%= item.item_image %>" alt="" />
