@@ -1,5 +1,6 @@
 Inventory app as part of Odin Project NodeJS curriculum
 Basic app with routing CRUD of items, categories and manufacturers
+live version available here https://inventory-app-node.onrender.com/
 
 Home page view
 
