@@ -48,10 +48,14 @@
 				<div class="cards-wrapper">
 				<% items.forEach(item => { %>
 				<div class="item-card">
+					<div class="card-image-wrapper">
 					<img src="<%= item.item_image %>" alt="" />
+				</div>
+					<div class="card-body">
 					<a href="/item/<%= item.id %>"><h3><%= item.item_name %></h3></a>
 					<p>Stock Level:<%= item.item_quantity %></p>
 					<p>For <%= item.manufacturer_name %> models</p>
+				</div>
 				</div>
 				<% }); %>
 			</div>
