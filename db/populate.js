@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const SQL = `CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, cat_name VARCHAR(255));
 
-CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, manufacturer_name VARCHAR(255) NOT NULL, category_id INT REFERENCES categories(id));
+CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, manufacturer_name VARCHAR(255) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS items (
 id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, 
@@ -18,14 +18,26 @@ manufacturer_name VARCHAR (255)
 
 INSERT INTO categories (cat_name) VALUES 
 ('Brake Pads'),
-('Filters'),
-('Suspension Parts');
+('Engines'),
+('Suspension Parts'),
+('Oils');
 
-INSERT INTO manufacturers (manufacturer_name,category_id) VALUES 
-('BMW', 1);
+INSERT INTO manufacturers (manufacturer_name) VALUES 
+('BMW'),
+('Land Rover'),
+('Bugatti'),
+('Toyota');
 
 INSERT INTO items (item_name,item_quantity,item_image,manufacturer_id,category_id,manufacturer_name,item_description) VALUES 
-('Brake Pads',24,'https://cdn.autodoc.de/thumb?id=17789932&m=1&n=0&lng=en&rev=94077839',1,1,'BMW','These are really great break pads, long wearing, good stopping power and cheap');
+('Brake Pads',24,'https://cdn.autodoc.de/thumb?id=17789932&m=1&n=0&lng=en&rev=94077839',1,1,'BMW','These are really great break pads, long wearing, good stopping power and cheap'),('Brake Pads',4,'https://cdn.autodoc.de/thumb?id=17789932&m=1&n=0&lng=en&rev=94077839',4,1,'Toyota','These are really great break pads, long wearing, good stopping power and cheap'),
+
+('2.0 Litre Engine',2,'https://scdn.autodoc.de/catalog/categories/150x150/10102.png ',1,2,'BMW','Strong Reliable 2.0 Litre Diesel engine'),
+
+('8.0 Litre W16 Engine',1,'https://scdn.autodoc.de/catalog/categories/150x150/10102.png ',3,2,'Bugatti','Insanely powerful 8.0 Litre 1000+ horsepower engine'),
+
+('Full front suspension kit',1,'https://www.moogparts.com/content/loc-emea/loc-eu/fmmp-moog/en_GB/products/_jcr_content/main-par/header_foreground/foreground-image.img.png/products-range1-1559292557886.png',1,3,'BMW','Full fron replacement suspension kit for BMW models'),
+
+('2.0 Litre Engine',2,'https://scdn.autodoc.de/catalog/categories/150x150/10102.png ',2,2,'Land Rover','Strong Reliable 2.0 Litre Diesel engine');
 `;
 
 async function main() {
