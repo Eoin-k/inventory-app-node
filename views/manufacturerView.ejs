@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="/styles.css" />
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,11 +12,16 @@
 	<body>
 		<div class="header-wrapper container">
 			<div class="heading-wrapper">
+				<h1>Manufacturer: <%= manufacturerName %></h1>
+				<%- include("partials/errors.ejs") %>
+				<div class="button-wrapper">
 				<a class="btn-primary header-link" href="/">Clear filters</a>
 				<a class="btn-primary header-link" href="/additem">Add new item</a>
 				<a class="btn-primary header-link" href="/addmanufacturer">Add new manufacturer</a>
 				<a class="btn-primary header-link" href="/addcategory">Add product category</a>
-				<h1>Manufacturer: <%= manufacturerName %></h1>
+			</div>
+			</div>
+				
 			</div>
 		</div>
 		<div class="body-wrapper">
@@ -23,7 +31,7 @@
 				<div class="cat-card">
 					<p><%= category.cat_name %></p>
 					<div>
-						<a href="/cat/<%= category.id%>">Show related parts</a>
+						<a class="btn-primary" href="/cat/<%= category.id%>">Show parts</a>
 					</div>
 				</div>
 				<% }); %>
@@ -32,7 +40,7 @@
 					<% manufacturers.forEach(manufacturer => { %>
 					<div class="manufacturer-card">
 						<p><%= manufacturer.manufacturer_name %></p>
-						<a href="/manufacturer/<%= manufacturer.manufacturer_id %>"
+						<a class="btn-primary" href="/manufacturer/<%= manufacturer.manufacturer_id %>"
 							>Show <%= manufacturer.manufacturer_name %> parts</a
 						>
 					</div>

@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+			rel="stylesheet"
+		/>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="/styles.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Add new manufacturer</title>
 	</head>
 	<body>
-		<h1>Add a new manufacturer</h1>
 		<%- include("partials/errors.ejs") %>
 		<div class="form-wrapper">
+			<h1>Add a new manufacturer</h1>
 			<form action="/addmanufacturer" method="POST">
 				<label for="manufacturer">
 					<p>Enter manufacturer name:</p>
@@ -17,6 +23,7 @@
 				</label>
 				<button class="btn-primary" type="submit">Add manufacturer</button>
 			</form>
+			<a href="/" class="btn-secondary">Go to Homepage</a>
 		</div>
 	</body>
 </html>
